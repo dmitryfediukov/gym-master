@@ -2,6 +2,7 @@ package ru.yandex.practicum.gym;
 
 import java.util.Objects;
 
+//имплементил Comparable и переопределял методы compareTo, equals, hashCode для сортировки тренировок в день по времени
 public class TimeOfDay implements Comparable<TimeOfDay> {
 
     //часы (от 0 до 23)
@@ -14,10 +15,19 @@ public class TimeOfDay implements Comparable<TimeOfDay> {
         this.minutes = minutes;
     }
 
+    public int getHours() {
+        return hours;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
     @Override
-    public int compareTo(TimeOfDay o) {
-        if (hours != o.hours) return hours - o.hours;
-        return minutes - o.minutes;
+    public int compareTo(TimeOfDay other) {
+        int cmp = Integer.compare(this.hours, other.hours);
+        if (cmp != 0) return cmp;
+        return Integer.compare(this.minutes, other.minutes);
     }
 
     @Override
@@ -33,11 +43,8 @@ public class TimeOfDay implements Comparable<TimeOfDay> {
         return Objects.hash(hours, minutes);
     }
 
-    public int getHours() {
-        return hours;
-    }
-
-    public int getMinutes() {
-        return minutes;
+    @Override
+    public String toString() {
+        return hours + ":" + minutes;
     }
 }
